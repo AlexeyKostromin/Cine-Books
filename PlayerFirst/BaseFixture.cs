@@ -29,7 +29,6 @@ namespace PlayerFirst
         [TearDown]
         public void Teardown()
         {
-            // Close your WebDriver instance here
             Driver.Quit();
         }
 
