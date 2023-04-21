@@ -14,6 +14,7 @@ namespace PlayerFirst
             homePage.AcceptCookie();
             homePage.ScrollToPlayer();
             
+            //Video mode
             homePage.PlayerMain.Play();            
             homePage.PlayerMain.VerifySliderChanges();
 
@@ -44,7 +45,7 @@ namespace PlayerFirst
             Assert.AreEqual(frameCounter1, frameCounter3, "After backward we should get previous page counter");
             Assert.AreEqual(imgReading1, imgReading3, "After backward we should get previous image");
 
-            //Audio Mode
+            //Listen Mode
             homePage.PlayerMain.EnableListenMode();
             homePage.PlayerMain.VerifySliderChanges();
         }

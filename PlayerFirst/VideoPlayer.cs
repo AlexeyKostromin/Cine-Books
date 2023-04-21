@@ -30,15 +30,8 @@ namespace PlayerFirst
         const string PlayBlockNextBtnXpath = "//div[@class = 'play-block']//button[@class = 'icon cn-webviewer-icon-next btn ']";
 
         //Listen mode
-        const string SliderXpath = "//div[@class='rc-slider']";
-        const string SliderTrackXpath = "//div[@class='rc-slider-track']";
+        const string SliderXpath = "//div[@class='rc-slider']";        
         
-
-        public void Play()
-        {            
-            Driver.FindElement(By.XPath(PlayMainBtnXpath)).Click();
-            Thread.Sleep(500);
-        }
 
         public void OpenPlayBlock()
         {
@@ -65,6 +58,12 @@ namespace PlayerFirst
                 Thread.Sleep(100);                
             }
         }
+        public void Play()
+        {
+            Driver.FindElement(By.XPath(PlayMainBtnXpath)).Click();
+            Thread.Sleep(500);
+        }
+
         public void OpenLeftSidebar()
         {
             var leftSidebarWrapper = Driver.FindElement(By.XPath(LeftSidebarWrapperXpath));
@@ -148,7 +147,7 @@ namespace PlayerFirst
 
 
         public void VerifySubsChanges()
-        {;
+        {
             var initialValue = GetSubs();
             for (var i = 0; i < 10; i++)
             {
