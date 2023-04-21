@@ -5,6 +5,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace PlayerFirst
 {
+    [TestFixture]
     public class BaseFixture
     {
         public IWebDriver Driver { get; set; }
@@ -15,8 +16,8 @@ namespace PlayerFirst
         [SetUp]
         public void Setup()
         {
-            Driver = WebDriver.CreateDriverChrome();
-            DriverWait = new WebDriverWait(Driver, DefaultTimeOut);
+            Driver = WebDriverFactory.GetDriver();
+            DriverWait = WebDriverFactory.GetDriverWait();
         }
 
         [TearDown]
