@@ -51,22 +51,19 @@ namespace PlayerFirst
         {
             var playBlock = PlayBlock;
             var actions = new Actions(Driver);
-            actions.MoveToElement(playBlock).Perform();
-            //DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(PlayBlockNextBtnXpath)));
+            actions.MoveToElement(playBlock).Perform();            
             DriverExt.WaitElementClickable(PlayBlockNextBtnXpath);
         }
 
         public void PlayBlockNextBtnClick()
         {
-            OpenPlayBlock();
-            //Driver.FindElement(By.XPath(PlayBlockNextBtnXpath)).Click();
+            OpenPlayBlock();            
             PlayBlockNextBtn.Click();
             Thread.Sleep(100);
         }
 
         public void ClickNextButtonNTimes(int count)
         {
-            //var nextBtn = Driver.FindElement(By.XPath(PlayBlockNextBtnXpath));
             for (int i = 0; i < count; i++)
             {
                 OpenPlayBlock();
@@ -89,16 +86,14 @@ namespace PlayerFirst
 
         public void EnableReadMode()
         {
-            OpenLeftSidebar();
-            //var btn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ReadingModeBtnXpath)));
+            OpenLeftSidebar();            
             var btn = DriverExt.WaitElementClickable(ReadingModeBtnXpath);
             btn.Click();            
         }
 
         public void EnableListenMode()
         {
-            OpenLeftSidebar();
-            //var btn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ListenModeBtnXpath)));
+            OpenLeftSidebar();            
             var btn = DriverExt.WaitElementClickable(ListenModeBtnXpath);
             btn.Click();            
             Thread.Sleep(500);
@@ -106,8 +101,7 @@ namespace PlayerFirst
 
         //Reading mode
         public int GetFrameCounterCurrent()
-        {
-            //var navigationFrameCounter = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(NavigationFrameCounterXpath)));
+        {            
             var navigationFrameCounter = DriverExt.WaitElementClickable(NavigationFrameCounterXpath);
             var text = navigationFrameCounter.Text;
             int index = text.IndexOf('/');
@@ -115,30 +109,25 @@ namespace PlayerFirst
         }
 
         public string GetImgReadingCurrent()
-        {
-            //var imageElement1 = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ImgReadingXpath)));
+        {            
             var imageElement1 = DriverExt.WaitElementClickable(ImgReadingXpath);
             var scrBase64 = imageElement1.GetAttribute("currentSrc");
             return scrBase64;
         }
 
         public void ForvardPage()
-        {
-            //var navigationForwdBtn = Driver.FindElement(By.XPath(NavigationForwdBtnXpath));
+        {            
             NavigationForwdBtn.Click();
         }
 
         public void BackwardPage()
         {
-            //var navigationForwdBtn = Driver.FindElement(By.XPath(NavigationBackBtnXpath));
             NavigationBackBtn.Click();
         }
 
         //Listen mode
         public double GetCurrentPlayTime()
-        {            
-            //var track = Driver.FindElement(By.XPath(SliderXpath));
-            //var text = track.GetAttribute("outerHTML");
+        {   
             var text = Slider.GetAttribute("outerHTML");
             var parsed = ParseGetSliderWidth(text);
             return parsed;

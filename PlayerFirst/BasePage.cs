@@ -9,7 +9,7 @@ namespace PlayerFirst
         protected static IWebDriver Driver { get; set; }
         protected static WebDriverWait DriverWait { get; set; }
 
-        protected static TimeSpan DefaultTimeOut = TimeSpan.FromSeconds(60);
+        protected static TimeSpan DefaultTimeOut = TimeSpan.FromSeconds(10);
         protected static WebDriverExtentions DriverExt { get; set; }
 
         protected BasePage()
