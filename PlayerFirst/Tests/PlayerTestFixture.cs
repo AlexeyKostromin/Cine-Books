@@ -45,7 +45,7 @@ namespace PlayerFirst
             Assert.AreEqual(frameCounter1, frameCounter3, "After backward we should get previous page counter");
             Assert.AreEqual(imgReading1, imgReading3, "After backward we should get previous image");
 
-            //Listen Mode 1
+            //Listen Mode 1+1
             homePage.PlayerMain.EnableListenMode();
             homePage.PlayerMain.VerifySliderChanges();
         }
