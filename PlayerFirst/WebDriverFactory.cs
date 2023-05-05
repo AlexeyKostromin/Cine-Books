@@ -24,7 +24,7 @@ namespace PlayerFirst
                 chromeOptions.AddArguments("chrome.switches", "--disable-extensions");
                 new DriverManager().SetUpDriver(new ChromeConfig());
                 driver = new ChromeDriver();                
-                driver.Manage().Timeouts().ImplicitWait = defaultImplicitTimeOut;                
+                //driver.Manage().Timeouts().ImplicitWait = defaultImplicitTimeOut;                
             }
             return driver;
         }

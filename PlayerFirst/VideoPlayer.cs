@@ -13,13 +13,20 @@ namespace PlayerFirst
         const string PlayMainBtnXpath = "//button[@class = 'play-block-center__button']";
         const string PlayBlockXpath = "//div[@class = 'play-block']";
 
+        //IWebElement PlayMainBtn => Driver.FindElement(By.XPath(PlayMainBtnXpath));
+        IWebElement PlayMainBtn => DriverExt.FindElement(PlayMainBtnXpath);
+        IWebElement PlayMainBtn1 => DriverExt.FindElement(By.XPath(PlayMainBtnXpath), 5);
+        IWebElement PlayBlock => DriverExt.FindElement(PlayBlockXpath);
 
         //Video mode
         const string VideoSubsXpath = "//div[contains(@class, 'video_subtitles')]";
-
         const string LeftSidebarWrapperXpath = "//div[contains(@class, 'left-sidebar-wrapper currentTheme')]";
         const string ReadingModeBtnXpath = "//div[@class = 'left-sidebar']//button[contains(@class, 'icon-reading-mode btn')]";
         const string ListenModeBtnXpath = "//div[@class = 'left-sidebar']//button[contains(@class, 'icon-listen-mode btn')]";
+        IWebElement VideoSubs => DriverExt.FindElement(VideoSubsXpath);
+        IWebElement LeftSidebarWrapper => DriverExt.FindElement(LeftSidebarWrapperXpath);
+        IWebElement ReadingModeBtn => DriverExt.FindElement(ReadingModeBtnXpath);
+        IWebElement ListenModeBtn => DriverExt.FindElement(ListenModeBtnXpath);
 
         //Reading mode
         const string NavigationBackBtnXpath = "//div[@class = 'navigation-block']//button[@class = 'icon cn-webviewer-icon-backward btn ']";
@@ -29,44 +36,53 @@ namespace PlayerFirst
         const string ImgReadingXpath = "//div[@class = 'image-frame no-background']/img";
         const string PlayBlockNextBtnXpath = "//div[@class = 'play-block']//button[@class = 'icon cn-webviewer-icon-next btn ']";
 
+        IWebElement NavigationBackBtn => DriverExt.FindElement(NavigationBackBtnXpath);
+        IWebElement NavigationForwdBtn => DriverExt.FindElement(NavigationForwdBtnXpath);
+        IWebElement NavigationFrameCounter => DriverExt.FindElement(NavigationFrameCounterXpath);
+        IWebElement ImgReading => DriverExt.FindElement(ImgReadingXpath);
+        IWebElement PlayBlockNextBtn => DriverExt.FindElement(PlayBlockNextBtnXpath);
+
+
         //Listen mode
-        const string SliderXpath = "//div[@class='rc-slider']";        
-        
+        const string SliderXpath = "//div[@class='rc-slider']";
+        IWebElement Slider=> DriverExt.FindElement(SliderXpath);
 
         public void OpenPlayBlock()
         {
-            var playBlock = Driver.FindElement(By.XPath(PlayBlockXpath));
+            var playBlock = PlayBlock;
             var actions = new Actions(Driver);
             actions.MoveToElement(playBlock).Perform();
-            DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(PlayBlockNextBtnXpath)));           
+            //DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(PlayBlockNextBtnXpath)));
+            DriverExt.WaitElementClickable(PlayBlockNextBtnXpath);
         }
 
         public void PlayBlockNextBtnClick()
         {
             OpenPlayBlock();
-            Driver.FindElement(By.XPath(PlayBlockNextBtnXpath)).Click();
+            //Driver.FindElement(By.XPath(PlayBlockNextBtnXpath)).Click();
+            PlayBlockNextBtn.Click();
             Thread.Sleep(100);
         }
 
         public void ClickNextButtonNTimes(int count)
         {
-            var nextBtn = Driver.FindElement(By.XPath(PlayBlockNextBtnXpath));
+            //var nextBtn = Driver.FindElement(By.XPath(PlayBlockNextBtnXpath));
             for (int i = 0; i < count; i++)
             {
                 OpenPlayBlock();
-                nextBtn.Click();
+                PlayBlockNextBtn.Click();
                 Thread.Sleep(100);                
             }
         }
         public void Play()
-        {
-            Driver.FindElement(By.XPath(PlayMainBtnXpath)).Click();
+        {            
+            PlayMainBtn.Click();
             Thread.Sleep(500);
         }
 
         public void OpenLeftSidebar()
         {
-            var leftSidebarWrapper = Driver.FindElement(By.XPath(LeftSidebarWrapperXpath));
+            var leftSidebarWrapper = LeftSidebarWrapper;
             var actions = new Actions(Driver);
             actions.MoveToElement(leftSidebarWrapper).Perform();            
         }
@@ -74,14 +90,16 @@ namespace PlayerFirst
         public void EnableReadMode()
         {
             OpenLeftSidebar();
-            var btn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ReadingModeBtnXpath)));
+            //var btn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ReadingModeBtnXpath)));
+            var btn = DriverExt.WaitElementClickable(ReadingModeBtnXpath);
             btn.Click();            
         }
 
         public void EnableListenMode()
         {
             OpenLeftSidebar();
-            var btn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ListenModeBtnXpath)));
+            //var btn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ListenModeBtnXpath)));
+            var btn = DriverExt.WaitElementClickable(ListenModeBtnXpath);
             btn.Click();            
             Thread.Sleep(500);
         }
@@ -89,7 +107,8 @@ namespace PlayerFirst
         //Reading mode
         public int GetFrameCounterCurrent()
         {
-            var navigationFrameCounter = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(NavigationFrameCounterXpath)));
+            //var navigationFrameCounter = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(NavigationFrameCounterXpath)));
+            var navigationFrameCounter = DriverExt.WaitElementClickable(NavigationFrameCounterXpath);
             var text = navigationFrameCounter.Text;
             int index = text.IndexOf('/');
             return Convert.ToInt32(text.Substring(0, index));
@@ -97,28 +116,30 @@ namespace PlayerFirst
 
         public string GetImgReadingCurrent()
         {
-            var imageElement1 = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ImgReadingXpath)));
+            //var imageElement1 = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(ImgReadingXpath)));
+            var imageElement1 = DriverExt.WaitElementClickable(ImgReadingXpath);
             var scrBase64 = imageElement1.GetAttribute("currentSrc");
             return scrBase64;
         }
 
         public void ForvardPage()
         {
-            var navigationForwdBtn = Driver.FindElement(By.XPath(NavigationForwdBtnXpath));
-            navigationForwdBtn.Click();
+            //var navigationForwdBtn = Driver.FindElement(By.XPath(NavigationForwdBtnXpath));
+            NavigationForwdBtn.Click();
         }
 
         public void BackwardPage()
         {
-            var navigationForwdBtn = Driver.FindElement(By.XPath(NavigationBackBtnXpath));
-            navigationForwdBtn.Click();
+            //var navigationForwdBtn = Driver.FindElement(By.XPath(NavigationBackBtnXpath));
+            NavigationBackBtn.Click();
         }
 
         //Listen mode
         public double GetCurrentPlayTime()
         {            
-            var track = Driver.FindElement(By.XPath(SliderXpath));
-            var text = track.GetAttribute("outerHTML");
+            //var track = Driver.FindElement(By.XPath(SliderXpath));
+            //var text = track.GetAttribute("outerHTML");
+            var text = Slider.GetAttribute("outerHTML");
             var parsed = ParseGetSliderWidth(text);
             return parsed;
         }
@@ -127,40 +148,8 @@ namespace PlayerFirst
         //Video mode
         public string GetSubs()
         {
-            return Driver.FindElement(By.XPath(VideoSubsXpath)).Text;         
+            return VideoSubs.Text;         
 
-        }
-
-        public void VerifySliderChanges()
-        {
-            Thread.Sleep(1000);
-            var initialValue = GetCurrentPlayTime();
-            for (var i = 0; i < 5; i++)
-            {
-                Thread.Sleep(1000);
-                var newValue = GetCurrentPlayTime();
-
-                Assert.AreNotEqual(initialValue, newValue, "Slider value was not updated within 5 seconds");
-                initialValue = newValue;
-            }
-        }
-
-
-        public void VerifySubsChanges()
-        {
-            var initialValue = GetSubs();
-            for (var i = 0; i < 10; i++)
-            {
-                Thread.Sleep(1000);
-                var newValue = GetSubs();
-                if (newValue == null || newValue == initialValue)
-                {
-                    continue;
-                }
-                Assert.AreNotEqual(initialValue, newValue, "Subs was not shanged within 10 seconds");
-                return;
-            }
-            throw new Exception("Subs was not shanged within 10 seconds");
         }
 
 

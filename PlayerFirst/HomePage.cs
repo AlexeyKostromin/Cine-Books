@@ -23,7 +23,10 @@ namespace PlayerFirst
 
         public void ScrollToPlayer()
         {
-            var formatAdvantagesLnk = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(FormatAdvantagesLnkXpath)));
+            //var formatAdvantagesLnk = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(FormatAdvantagesLnkXpath)));
+            
+            //var formatAdvantagesLnk = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(FormatAdvantagesLnkXpath)));
+            var formatAdvantagesLnk = DriverExt.WaitElementClickable(FormatAdvantagesLnkXpath);
             Actions actions = new Actions(Driver);
             actions.MoveToElement(formatAdvantagesLnk, 0, -1000).Perform();
             Thread.Sleep(500);
@@ -31,7 +34,8 @@ namespace PlayerFirst
 
         public void AcceptCookie()
         {
-            var acceptCookieBtn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(AcceptCookieBtnXpath)));
+            //var acceptCookieBtn = DriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(AcceptCookieBtnXpath)));
+            var acceptCookieBtn = DriverExt.WaitElementClickable(AcceptCookieBtnXpath);
             acceptCookieBtn.Click();
             DriverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath(GdprCookieMessageXpath)));
         }

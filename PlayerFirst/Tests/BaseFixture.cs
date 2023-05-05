@@ -6,27 +6,12 @@ using OpenQA.Selenium.Support.UI;
 namespace PlayerFirst
 {
     [TestFixture]
-    public class BaseFixture
+    public class BaseFixture : BasePage
     {
-        //inherit it from BasePage
-        public IWebDriver Driver { get; set; }
-        public WebDriverWait DriverWait { get; set; }
-
-        protected static TimeSpan DefaultTimeOut = TimeSpan.FromSeconds(60);
-
-        [SetUp]
-        public void Setup()
-        {
-            Driver = WebDriverFactory.GetDriver();
-            DriverWait = WebDriverFactory.GetDriverWait();
-        }
-
-        
-
         [TearDown]
         public void Teardown()
         {
-            Driver.Quit();
+            CloseBrowser();
         }
 
         
