@@ -11,6 +11,7 @@ namespace PlayerFirst
     {
         private static IWebDriver driver;
         private static WebDriverWait driverWait { get; set; }
+        private static TimeSpan defaultImplicitTimeOut = TimeSpan.FromSeconds(1);
         private static TimeSpan defaultTimeOut = TimeSpan.FromSeconds(60);
 
         public static IWebDriver GetDriver()
@@ -22,7 +23,8 @@ namespace PlayerFirst
                 chromeOptions.AddArguments("--disable-sync");
                 chromeOptions.AddArguments("chrome.switches", "--disable-extensions");
                 new DriverManager().SetUpDriver(new ChromeConfig());
-                driver = new ChromeDriver();
+                driver = new ChromeDriver();                
+                driver.Manage().Timeouts().ImplicitWait = defaultImplicitTimeOut;                
             }
             return driver;
         }

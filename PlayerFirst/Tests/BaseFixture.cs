@@ -8,6 +8,7 @@ namespace PlayerFirst
     [TestFixture]
     public class BaseFixture
     {
+        //inherit it from BasePage
         public IWebDriver Driver { get; set; }
         public WebDriverWait DriverWait { get; set; }
 
@@ -19,6 +20,8 @@ namespace PlayerFirst
             Driver = WebDriverFactory.GetDriver();
             DriverWait = WebDriverFactory.GetDriverWait();
         }
+
+        
 
         [TearDown]
         public void Teardown()
